@@ -312,7 +312,7 @@ export const chains: Chain[] = [
   base,
   polygon,
   zksync,
-  nexilix,
+  // nexilix,
   gnosis,
   classic,
   mainnet,
