@@ -9,7 +9,7 @@ import '../styles/globals.css';
 import { createConfig, WagmiProvider } from 'wagmi';
 import { RainbowKitProvider, connectorsForWallets } from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
-import { chains } from '../chain'; // Importing from your custom chains file
+import { chains, chainMap } from '../chain'; // Import from your custom chains file
 import { useIsMounted } from '../hooks';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -51,22 +51,28 @@ const connectors = connectorsForWallets(
   }
 );
 
+// Helper function to get RPC URL by chain ID
+const getRpcUrl = (chainId: number) => {
+  const chain = chainMap.get(chainId);
+  return chain?.rpcUrls.default.http[0] || '';
+};
+
 // Configure wagmi
 const wagmiConfig = createConfig({
   connectors,
   chains, // Use the imported chains from your custom chain.ts
   transports: {
-    1: chains.ethereum.rpcUrls.default.http[0],
-    137: chains.polygon.rpcUrls.default.http[0],
-    43114: chains.avalanche.rpcUrls.default.http[0],
-    324: chains.zksync.rpcUrls.default.http[0],
-    8453: chains.base.rpcUrls.default.http[0],
-    240: chains.nexilix.rpcUrls.default.http[0],
-    100: chains.gnosis.rpcUrls.default.http[0],
-    42161: chains.arbitrum.rpcUrls.default.http[0],
-    56: chains.bsc.rpcUrls.default.http[0],
-    10: chains.optimism.rpcUrls.default.http[0],
-    61: chains.ethereumclassic.rpcUrls.default.http[0],
+    1: http(getRpcUrl(1)), // Ethereum Mainnet
+    137: http(getRpcUrl(137)), // Polygon
+    10: http(getRpcUrl(10)), // Optimism
+    42161: http(getRpcUrl(42161)), // Arbitrum
+    56: http(getRpcUrl(56)), // BNB Smart Chain (BSC)
+    100: http(getRpcUrl(100)), // Gnosis
+    240: http(getRpcUrl(240)), // Nexilix
+    324: http(getRpcUrl(324)), // ZKsync
+    8453: http(getRpcUrl(8453)), // Base
+    61: http(getRpcUrl(61)), // Ethereum Classic
+    43114: http(getRpcUrl(43114)), // Avalanche
   },
 });
 
