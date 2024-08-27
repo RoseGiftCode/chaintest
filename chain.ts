@@ -10,7 +10,7 @@ function defineChain(chain: Chain): Chain {
   };
 }
 
-// Define individual chains
+// Define chains
 const avalanche = defineChain({
   id: 43114,
   name: 'Avalanche',
@@ -171,32 +171,6 @@ const zksync = defineChain({
   },
 });
 
-// Uncomment and update when the Nexilix RPC URL is available
-// const nexilix = defineChain({
-//   id: 240,
-//   name: 'Nexilix Smart Chain',
-//   nativeCurrency: {
-//     decimals: 18,
-//     name: 'Nexilix',
-//     symbol: 'NEXILIX',
-//   },
-//   rpcUrls: {
-//     default: { http: ['https://rpcurl.pos.nexilix.com'] },
-//   },
-//   blockExplorers: {
-//     default: {
-//       name: 'NexilixScan',
-//       url: 'https://scan.nexilix.com',
-//     },
-//   },
-//   contracts: {
-//     multicall3: {
-//       address: '0x58381c8e2BF9d0C2C4259cA14BdA9Afe02831244',
-//       blockCreated: 74448,
-//     },
-//   },
-// });
-
 const gnosis = defineChain({
   id: 100,
   name: 'Gnosis',
@@ -295,32 +269,8 @@ const optimism = defineChain({
   },
 });
 
-// Create a map of chains
-const chainMap = {
-  [avalanche.id]: avalanche,
-  [arbitrum.id]: arbitrum,
-  [bsc.id]: bsc,
-  [base.id]: base,
-  [polygon.id]: polygon,
-  [zksync.id]: zksync,
-  [gnosis.id]: gnosis,
-  [classic.id]: classic,
-  [mainnet.id]: mainnet,
-  [optimism.id]: optimism,
-};
-
-export const chains: readonly [
-  typeof avalanche,
-  typeof arbitrum,
-  typeof bsc,
-  typeof base,
-  typeof polygon,
-  typeof zksync,
-  typeof gnosis,
-  typeof classic,
-  typeof mainnet,
-  typeof optimism
-] = [
+// Export all chains as an array
+export const chains = [
   avalanche,
   arbitrum,
   bsc,
@@ -333,4 +283,7 @@ export const chains: readonly [
   optimism,
 ] as const;
 
-export { chainMap };
+// Create a map from chain IDs to chains
+export const chainMap = Object.fromEntries(
+  chains.map(chain => [chain.id, chain])
+) as Record<number, typeof chains[number]>;
