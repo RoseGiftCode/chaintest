@@ -53,7 +53,7 @@ const connectors = connectorsForWallets(
 
 // Helper function to get RPC URL by chain ID
 const getRpcUrl = (chainId: number) => {
-  const chain = chainMap.get(chainId);
+  const chain = chainMap[chainId];
   return chain?.rpcUrls.default.http[0] || '';
 };
 
