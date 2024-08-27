@@ -7,7 +7,7 @@ import '../styles/globals.css';
 
 // Imports
 import { createConfig, reconnect } from '@wagmi/core';
-import { WagmiProvider } from '@wagmi';
+import { WagmiProvider } from 'wagmi';
 import { RainbowKitProvider, connectorsForWallets } from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
 import { chains, chainMap } from '../chain'; // Importing from your custom chains file
