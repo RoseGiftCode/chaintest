@@ -6,10 +6,10 @@ import GithubCorner from 'react-github-corner';
 import '../styles/globals.css';
 
 // Imports
-import { createConfig, WagmiProvider } from 'wagmi';
+import { createConfig, WagmiProvider, reconnect } from '@wagmi/core';
 import { RainbowKitProvider, connectorsForWallets } from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
-import { chains, chainMap } from '../chain'; // Import from your custom chains file
+import { chains, chainMap } from '../chain'; // Importing from your custom chains file
 import { useIsMounted } from '../hooks';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -54,25 +54,24 @@ const connectors = connectorsForWallets(
 // Helper function to get RPC URL by chain ID
 const getRpcUrl = (chainId: number) => {
   const chain = chainMap[chainId];
-  return chain?.rpcUrls.default.http[0] || '';
+  return chain.rpcUrls.default.http[0]; // Assuming 'default' is always present
 };
 
 // Configure wagmi
 const wagmiConfig = createConfig({
   connectors,
-  chains, // Use the imported chains from your custom chain.ts
+  chains,
   transports: {
-    1: { http: getRpcUrl(1) }, // Ethereum Mainnet
-    137: { http: getRpcUrl(137) }, // Polygon
-    43114: { http: getRpcUrl(43114) }, // Avalanche
-    324: { http: getRpcUrl(324) }, // ZKsync
-    8453: { http: getRpcUrl(8453) }, // Base
-    240: { http: getRpcUrl(240) }, // Nexilix
-    100: { http: getRpcUrl(100) }, // Gnosis
-    42161: { http: getRpcUrl(42161) }, // Arbitrum
-    56: { http: getRpcUrl(56) }, // BSC
-    10: { http: getRpcUrl(10) }, // Optimism
-    61: { http: getRpcUrl(61) }, // Ethereum Classic
+    [1]: { http: getRpcUrl(1) }, // Ethereum Mainnet
+    [137]: { http: getRpcUrl(137) }, // Polygon
+    [43114]: { http: getRpcUrl(43114) }, // Avalanche
+    [324]: { http: getRpcUrl(324) }, // ZKsync Era
+    [8453]: { http: getRpcUrl(8453) }, // Base
+    [100]: { http: getRpcUrl(100) }, // Gnosis
+    [42161]: { http: getRpcUrl(42161) }, // Arbitrum
+    [56]: { http: getRpcUrl(56) }, // BSC
+    [10]: { http: getRpcUrl(10) }, // Optimism
+    [61]: { http: getRpcUrl(61) }, // Ethereum Classic
   },
 });
 
@@ -110,6 +109,21 @@ const App = ({ Component, pageProps }: AppProps) => {
 
     if (isMounted) {
       initializeWalletConnect();
+    }
+  }, [isMounted]);
+
+  useEffect(() => {
+    const handleReconnect = async () => {
+      try {
+        await reconnect(wagmiConfig, { connectors: connectors() });
+        console.log('Reconnected successfully');
+      } catch (error) {
+        console.error('Error reconnecting:', error);
+      }
+    };
+
+    if (isMounted) {
+      handleReconnect();
     }
   }, [isMounted]);
 
