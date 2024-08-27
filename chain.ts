@@ -10,7 +10,7 @@ function defineChain(chain: Chain): Chain {
   };
 }
 
-// Avalanche
+// Define individual chains
 const avalanche = defineChain({
   id: 43114,
   name: 'Avalanche',
@@ -37,7 +37,6 @@ const avalanche = defineChain({
   },
 });
 
-// Arbitrum
 const arbitrum = defineChain({
   id: 42161,
   name: 'Arbitrum One',
@@ -60,7 +59,6 @@ const arbitrum = defineChain({
   },
 });
 
-// BNB Smart Chain (BSC)
 const bsc = defineChain({
   id: 56,
   name: 'BNB Smart Chain',
@@ -87,7 +85,6 @@ const bsc = defineChain({
   },
 });
 
-// Base
 const base = defineChain({
   id: 8453,
   name: 'Base',
@@ -119,7 +116,6 @@ const base = defineChain({
   },
 });
 
-// Polygon
 const polygon = defineChain({
   id: 137,
   name: 'Polygon',
@@ -142,7 +138,6 @@ const polygon = defineChain({
   },
 });
 
-// ZKsync Era
 const zksync = defineChain({
   id: 324,
   name: 'ZKsync Era',
@@ -176,7 +171,7 @@ const zksync = defineChain({
   },
 });
 
-// // Nexilix Smart Chain
+// Uncomment and update when the Nexilix RPC URL is available
 // const nexilix = defineChain({
 //   id: 240,
 //   name: 'Nexilix Smart Chain',
@@ -202,7 +197,6 @@ const zksync = defineChain({
 //   },
 // });
 
-// Gnosis
 const gnosis = defineChain({
   id: 100,
   name: 'Gnosis',
@@ -232,7 +226,6 @@ const gnosis = defineChain({
   },
 });
 
-// Ethereum Classic
 const classic = defineChain({
   id: 61,
   name: 'Ethereum Classic',
@@ -252,7 +245,6 @@ const classic = defineChain({
   },
 });
 
-// Ethereum Mainnet
 const mainnet = defineChain({
   id: 1,
   name: 'Ethereum',
@@ -277,7 +269,6 @@ const mainnet = defineChain({
   },
 });
 
-// Optimism
 const optimism = defineChain({
   id: 10,
   name: 'Optimism',
@@ -304,7 +295,20 @@ const optimism = defineChain({
   },
 });
 
-// Export all chains as an array
+// Create a map of chains
+const chainMap = {
+  [avalanche.id]: avalanche,
+  [arbitrum.id]: arbitrum,
+  [bsc.id]: bsc,
+  [base.id]: base,
+  [polygon.id]: polygon,
+  [zksync.id]: zksync,
+  [gnosis.id]: gnosis,
+  [classic.id]: classic,
+  [mainnet.id]: mainnet,
+  [optimism.id]: optimism,
+};
+
 export const chains: readonly [
   typeof avalanche,
   typeof arbitrum,
@@ -328,3 +332,5 @@ export const chains: readonly [
   mainnet,
   optimism,
 ] as const;
+
+export { chainMap };
