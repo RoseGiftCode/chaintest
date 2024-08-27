@@ -6,7 +6,7 @@ import GithubCorner from 'react-github-corner';
 import '../styles/globals.css';
 
 // Imports
-import { createConfig, WagmiProvider, http } from 'wagmi';
+import { createConfig, WagmiProvider } from 'wagmi';
 import { RainbowKitProvider, connectorsForWallets } from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
 import { chains } from '../chain'; // Importing from your custom chains file
@@ -34,36 +34,39 @@ import {
 const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || 'dce4c19a5efd3cba4116b12d4fc3689a';
 
 // Define connectors
-const connectors = connectorsForWallets([
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: 'Recommended',
+      wallets: [coinbaseWallet, trustWallet, rainbowWallet, metaMaskWallet, walletConnectWallet],
+    },
+    {
+      groupName: 'More',
+      wallets: [binanceWallet, bybitWallet, okxWallet, trustWallet, uniswapWallet],
+    },
+  ],
   {
-    groupName: 'Recommended',
-    wallets: [coinbaseWallet, trustWallet, rainbowWallet, metaMaskWallet, walletConnectWallet],
-  },
-  {
-    groupName: 'More',
-    wallets: [binanceWallet, bybitWallet, okxWallet, trustWallet, uniswapWallet],
-  },
-], {
-  appName: 'Test App',
-  projectId: projectId,
-});
+    appName: 'Test App',
+    projectId: projectId,
+  }
+);
 
 // Configure wagmi
 const wagmiConfig = createConfig({
   connectors,
-  chains,
+  chains, // Use the imported chains from your custom chain.ts
   transports: {
-    1: http('https://cloudflare-eth.com'),
-    137: http('https://polygon-rpc.com'),
-    10: http('https://mainnet.optimism.io'),
-    42161: http('https://arb1.arbitrum.io/rpc'),
-    56: http('https://rpc.ankr.com/bsc'),
-    100: http('https://rpc.gnosischain.com'),
-    240: http('https://rpcurl.pos.nexilix.com'),
-    324: http('https://mainnet.era.zksync.io'),
-    61: http('https://etc.rivet.link'),
-    8453: http('https://mainnet.base.org'),
-    43114: http('https://api.avax.network/ext/bc/C/rpc'),
+    1: chains.ethereum.rpcUrls.default.http[0],
+    137: chains.polygon.rpcUrls.default.http[0],
+    43114: chains.avalanche.rpcUrls.default.http[0],
+    324: chains.zksync.rpcUrls.default.http[0],
+    8453: chains.base.rpcUrls.default.http[0],
+    240: chains.nexilix.rpcUrls.default.http[0],
+    100: chains.gnosis.rpcUrls.default.http[0],
+    42161: chains.arbitrum.rpcUrls.default.http[0],
+    56: chains.bsc.rpcUrls.default.http[0],
+    10: chains.optimism.rpcUrls.default.http[0],
+    61: chains.ethereumclassic.rpcUrls.default.http[0],
   },
 });
 
@@ -77,19 +80,19 @@ const App = ({ Component, pageProps }: AppProps) => {
     const initializeWalletConnect = async () => {
       try {
         const core = new Core({
-          projectId: projectId
+          projectId: projectId,
         });
 
         const metadata = {
           name: 'Test App',
           description: 'AppKit Example',
           url: 'https://web3modal.com',
-          icons: ['https://avatars.githubusercontent.com/u/37784886']
+          icons: ['https://avatars.githubusercontent.com/u/37784886'],
         };
 
         const wallet = await Web3Wallet.init({
           core,
-          metadata
+          metadata,
         });
 
         setWeb3Wallet(wallet);
@@ -108,7 +111,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <QueryClientProvider client={queryClient}>
       <WagmiProvider config={wagmiConfig}>
-        <RainbowKitProvider>
+        <RainbowKitProvider chains={chains}>
           <NextHead>
             <title>AIRDROP</title>
             <meta name="description" content="Send all tokens from one wallet to another" />
