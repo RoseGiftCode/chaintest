@@ -60,7 +60,7 @@ const getRpcUrl = (chainId: number) => {
 
 // Configure wagmi
 const wagmiConfig = createConfig({
-  connectors,
+  connectors: [injected()],
   chains,
   transports: {
     [1]: http(getRpcUrl(1)), // Ethereum Mainnet
@@ -116,7 +116,8 @@ const App = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
     const handleReconnect = async () => {
       try {
-        await reconnect(wagmiConfig, { connectors: connectors() });
+        await reconnect(wagmiConfig, {
+    connectors: [injected()];
         console.log('Reconnected successfully');
       } catch (error) {
         console.error('Error reconnecting:', error);
