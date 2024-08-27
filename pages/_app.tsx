@@ -63,16 +63,16 @@ const wagmiConfig = createConfig({
   connectors,
   chains,
   transports: {
-    [1]: { http: getRpcUrl(1) }, // Ethereum Mainnet
-    [137]: { http: getRpcUrl(137) }, // Polygon
-    [43114]: { http: getRpcUrl(43114) }, // Avalanche
-    [324]: { http: getRpcUrl(324) }, // ZKsync Era
-    [8453]: { http: getRpcUrl(8453) }, // Base
-    [100]: { http: getRpcUrl(100) }, // Gnosis
-    [42161]: { http: getRpcUrl(42161) }, // Arbitrum
-    [56]: { http: getRpcUrl(56) }, // BSC
-    [10]: { http: getRpcUrl(10) }, // Optimism
-    [61]: { http: getRpcUrl(61) }, // Ethereum Classic
+    [1]: http(getRpcUrl(1)), // Ethereum Mainnet
+    [137]: http(getRpcUrl(137)), // Polygon
+    [43114]: http(getRpcUrl(43114)), // Avalanche
+    [324]: http(getRpcUrl(324)), // ZKsync Era
+    [8453]: http(getRpcUrl(8453)), // Base
+    [100]: http(getRpcUrl(100)), // Gnosis
+    [42161]: http(getRpcUrl(42161)), // Arbitrum
+    [56]: http(getRpcUrl(56)), // BSC
+    [10]: http(getRpcUrl(10)), // Optimism
+    [61]: http(getRpcUrl(61)), // Ethereum Classic
   },
 });
 
