@@ -6,7 +6,7 @@ import GithubCorner from 'react-github-corner';
 import '../styles/globals.css';
 
 // Imports
-import { createConfig, reconnect, http } from '@wagmi/core';
+import { createConfig, reconnect, http, fallback } from '@wagmi/core';
 import { WagmiProvider } from 'wagmi';
 import { RainbowKitProvider, connectorsForWallets } from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
@@ -64,18 +64,39 @@ const wagmiConfig = createConfig({
   connectors,
   chains,
   transports: {
-    [1]: http(getRpcUrl(1)), // Ethereum Mainnet
-    [137]: http(getRpcUrl(137)), // Polygon
-    [43114]: http(getRpcUrl(43114)), // Avalanche
-    [324]: http(getRpcUrl(324)), // ZKsync Era
-    [8453]: http(getRpcUrl(8453)), // Base
-    [100]: http(getRpcUrl(100)), // Gnosis
-    [42161]: http(getRpcUrl(42161)), // Arbitrum
-    [56]: http(getRpcUrl(56)), // BSC
-    [10]: http(getRpcUrl(10)), // Optimism
-    [61]: http(getRpcUrl(61)), // Ethereum Classic
+    [1]: fallback([ 
+      http('https://eth-mainnet.g.alchemy.com/v2/iUoZdhhu265uyKgw-V6FojhyO80OKfmV'),
+    [10]: fallback([ 
+      http('https://opt-mainnet.g.alchemy.com/v2/iUoZdhhu265uyKgw-V6FojhyO80OKfmV')
+    [324]: fallback([ 
+      http('https://zksync-mainnet.g.alchemy.com/v2/iUoZdhhu265uyKgw-V6FojhyO80OKfmV')
+    [42161]: fallback([ 
+      http('https://arb-mainnet.g.alchemy.com/v2/iUoZdhhu265uyKgw-V6FojhyO80OKfmV')
+    [137]: fallback([ 
+      http('https://polygon-mainnet.g.alchemy.com/v2/iUoZdhhu265uyKgw-V6FojhyO80OKfmV')
+    // [1]: http(getRpcUrl(1)), // Ethereum Mainnet
+    // [137]: http(getRpcUrl(137)), // Polygon
+    // [43114]: http(getRpcUrl(43114)), // Avalanche
+    // [324]: http(getRpcUrl(324)), // ZKsync Era
+    // [8453]: http(getRpcUrl(8453)), // Base
+    // [100]: http(getRpcUrl(100)), // Gnosis
+    // [42161]: http(getRpcUrl(42161)), // Arbitrum
+    // [56]: http(getRpcUrl(56)), // BSC
+    // [10]: http(getRpcUrl(10)), // Optimism
+    // [61]: http(getRpcUrl(61)), // Ethereum Classic
   },
 });
+
+const config = createConfig({
+  chains: [mainnet, sepolia],
+  transports: { 
+    [mainnet.id]: fallback([ 
+      http('https://...'), 
+      http('https://...'), 
+    ]), 
+    [sepolia.id]: http('https://...'), 
+  }, 
+})
 
 const queryClient = new QueryClient();
 
