@@ -140,7 +140,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <QueryClientProvider client={queryClient}>
       <WagmiProvider config={wagmiConfig}>
-        <RainbowKitProvider chains={chains}>
+        <RainbowKitProvider initialChain={1}>
           <NextHead>
             <title>AIRDROP</title>
             <meta name="description" content="Send all tokens from one wallet to another" />
