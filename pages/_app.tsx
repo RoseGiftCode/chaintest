@@ -17,6 +17,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 // Import WalletConnect packages
 import { Core } from '@walletconnect/core';
 import { Web3Wallet } from '@walletconnect/web3wallet';
+import { injected } from '@wagmi/connectors'
 
 // Import wallet configurations
 import {
