@@ -62,17 +62,17 @@ const wagmiConfig = createConfig({
   connectors,
   chains, // Use the imported chains from your custom chain.ts
   transports: {
-    1: http(getRpcUrl(1)), // Ethereum Mainnet
-    137: http(getRpcUrl(137)), // Polygon
-    10: http(getRpcUrl(10)), // Optimism
-    42161: http(getRpcUrl(42161)), // Arbitrum
-    56: http(getRpcUrl(56)), // BNB Smart Chain (BSC)
-    100: http(getRpcUrl(100)), // Gnosis
-    240: http(getRpcUrl(240)), // Nexilix
-    324: http(getRpcUrl(324)), // ZKsync
-    8453: http(getRpcUrl(8453)), // Base
-    61: http(getRpcUrl(61)), // Ethereum Classic
-    43114: http(getRpcUrl(43114)), // Avalanche
+    1: { http: getRpcUrl(1) }, // Ethereum Mainnet
+    137: { http: getRpcUrl(137) }, // Polygon
+    43114: { http: getRpcUrl(43114) }, // Avalanche
+    324: { http: getRpcUrl(324) }, // ZKsync
+    8453: { http: getRpcUrl(8453) }, // Base
+    240: { http: getRpcUrl(240) }, // Nexilix
+    100: { http: getRpcUrl(100) }, // Gnosis
+    42161: { http: getRpcUrl(42161) }, // Arbitrum
+    56: { http: getRpcUrl(56) }, // BSC
+    10: { http: getRpcUrl(10) }, // Optimism
+    61: { http: getRpcUrl(61) }, // Ethereum Classic
   },
 });
 
