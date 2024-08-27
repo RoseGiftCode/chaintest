@@ -19,6 +19,19 @@ import { Core } from '@walletconnect/core';
 import { Web3Wallet } from '@walletconnect/web3wallet';
 import { injected } from '@wagmi/connectors';
 
+// Import wallet configurations
+import {
+  rainbowWallet,
+  walletConnectWallet,
+  coinbaseWallet,
+  trustWallet,
+  uniswapWallet,
+  okxWallet,
+  metaMaskWallet,
+  bybitWallet,
+  binanceWallet,
+} from '@rainbow-me/rainbowkit/wallets';
+
 // Define WalletConnect projectId
 const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || 'dce4c19a5efd3cba4116b12d4fc3689a';
 
