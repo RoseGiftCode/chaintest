@@ -6,7 +6,7 @@ import GithubCorner from 'react-github-corner';
 import '../styles/globals.css';
 
 // Imports
-import { createConfig, reconnect, http } from '@wagmi/core';
+import { createConfig, reconnect, http, type Connection, type ReconnectReturnType, type ReconnectErrorType } from '@wagmi/core';
 import { WagmiProvider } from 'wagmi';
 import { RainbowKitProvider, connectorsForWallets } from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
@@ -18,6 +18,13 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Core } from '@walletconnect/core';
 import { Web3Wallet } from '@walletconnect/web3wallet';
 import { injected } from '@wagmi/connectors'
+import {
+  type ReconnectData,
+  type ReconnectVariables,
+  type ReconnectMutate,
+  type ReconnectMutateAsync,
+  reconnectMutationOptions,
+} from '@wagmi/core/query'
 
 // Import wallet configurations
 import {
