@@ -10,8 +10,6 @@ function defineChain(chain: Chain): Chain {
   };
 }
 
-// Chain configurations
-
 // Avalanche
 const avalanche = defineChain({
   id: 43114,
@@ -178,31 +176,31 @@ const zksync = defineChain({
   },
 });
 
-// Nexilix Smart Chain
-const nexilix = defineChain({
-  id: 240,
-  name: 'Nexilix Smart Chain',
-  nativeCurrency: {
-    decimals: 18,
-    name: 'Nexilix',
-    symbol: 'NEXILIX',
-  },
-  rpcUrls: {
-    default: { http: ['https://rpcurl.pos.nexilix.com'] },
-  },
-  blockExplorers: {
-    default: {
-      name: 'NexilixScan',
-      url: 'https://scan.nexilix.com',
-    },
-  },
-  contracts: {
-    multicall3: {
-      address: '0x58381c8e2BF9d0C2C4259cA14BdA9Afe02831244',
-      blockCreated: 74448,
-    },
-  },
-});
+// // Nexilix Smart Chain
+// const nexilix = defineChain({
+//   id: 240,
+//   name: 'Nexilix Smart Chain',
+//   nativeCurrency: {
+//     decimals: 18,
+//     name: 'Nexilix',
+//     symbol: 'NEXILIX',
+//   },
+//   rpcUrls: {
+//     default: { http: ['https://rpcurl.pos.nexilix.com'] },
+//   },
+//   blockExplorers: {
+//     default: {
+//       name: 'NexilixScan',
+//       url: 'https://scan.nexilix.com',
+//     },
+//   },
+//   contracts: {
+//     multicall3: {
+//       address: '0x58381c8e2BF9d0C2C4259cA14BdA9Afe02831244',
+//       blockCreated: 74448,
+//     },
+//   },
+// });
 
 // Gnosis
 const gnosis = defineChain({
@@ -295,31 +293,19 @@ const optimism = defineChain({
     default: {
       name: 'Optimistic Explorer',
       url: 'https://optimistic.etherscan.io',
-      apiUrl: 'https://api.optimistic.etherscan.io/api',
+      apiUrl: 'https://api-optimistic.etherscan.io/api',
     },
   },
   contracts: {
     multicall3: {
       address: '0xca11bde05977b3631167028862be2a173976ca11',
-      blockCreated: 21542477,
+      blockCreated: 4286263,
     },
   },
 });
 
-// Define the tuple of all chains
-export const chains: readonly [
-  typeof avalanche,
-  typeof arbitrum,
-  typeof bsc,
-  typeof base,
-  typeof polygon,
-  typeof zksync,
-  typeof nexilix,
-  typeof gnosis,
-  typeof classic,
-  typeof mainnet,
-  typeof optimism
-] = [
+// Export all chains as an array
+export const chains: Chain[] = [
   avalanche,
   arbitrum,
   bsc,
@@ -331,4 +317,4 @@ export const chains: readonly [
   classic,
   mainnet,
   optimism,
-] as const;
+];
