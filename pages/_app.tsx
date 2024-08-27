@@ -6,7 +6,8 @@ import GithubCorner from 'react-github-corner';
 import '../styles/globals.css';
 
 // Imports
-import { createConfig, WagmiProvider, reconnect } from '@wagmi/core';
+import { createConfig, reconnect } from '@wagmi/core';
+import { WagmiProvider } from '@wagmi';
 import { RainbowKitProvider, connectorsForWallets } from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
 import { chains, chainMap } from '../chain'; // Importing from your custom chains file
