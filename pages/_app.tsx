@@ -116,7 +116,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
     const handleReconnect = async () => {
       try {
-        await reconnect(wagmiConfig, { connectors: () => connectors() });
+        await reconnect(wagmiConfig, { connectors: connectors() });
         console.log('Reconnected successfully');
       } catch (error) {
         console.error('Error reconnecting:', error);
