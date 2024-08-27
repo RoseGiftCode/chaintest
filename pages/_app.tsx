@@ -121,7 +121,7 @@ const App = ({ Component, pageProps }: AppProps) => {
     }
   }, [isMounted]);
 
-  seEffect(() => {
+  useEffect(() => {
     const handleReconnect = async () => {
       try {
         await reconnect(wagmiConfig, { connectors: [injected()] });
