@@ -305,16 +305,26 @@ const optimism = defineChain({
 });
 
 // Export all chains as an array
-export const chains: Chain[] = [
+export const chains: readonly [
+  typeof avalanche,
+  typeof arbitrum,
+  typeof bsc,
+  typeof base,
+  typeof polygon,
+  typeof zksync,
+  typeof gnosis,
+  typeof classic,
+  typeof mainnet,
+  typeof optimism
+] = [
   avalanche,
   arbitrum,
   bsc,
   base,
   polygon,
   zksync,
-  // nexilix,
   gnosis,
   classic,
   mainnet,
   optimism,
-];
+] as const;
