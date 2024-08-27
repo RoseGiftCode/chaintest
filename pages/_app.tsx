@@ -6,7 +6,7 @@ import GithubCorner from 'react-github-corner';
 import '../styles/globals.css';
 
 // Imports
-import { createConfig, reconnect, http, type Connection, type ReconnectReturnType, type ReconnectErrorType } from '@wagmi/core';
+import { createConfig, reconnect, http } from '@wagmi/core';
 import { WagmiProvider } from 'wagmi';
 import { RainbowKitProvider, connectorsForWallets } from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
@@ -17,27 +17,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 // Import WalletConnect packages
 import { Core } from '@walletconnect/core';
 import { Web3Wallet } from '@walletconnect/web3wallet';
-import { injected } from '@wagmi/connectors'
-import {
-  type ReconnectData,
-  type ReconnectVariables,
-  type ReconnectMutate,
-  type ReconnectMutateAsync,
-  reconnectMutationOptions,
-} from '@wagmi/core/query'
-
-// Import wallet configurations
-import {
-  rainbowWallet,
-  walletConnectWallet,
-  coinbaseWallet,
-  trustWallet,
-  uniswapWallet,
-  okxWallet,
-  metaMaskWallet,
-  bybitWallet,
-  binanceWallet,
-} from '@rainbow-me/rainbowkit/wallets';
+import { injected } from '@wagmi/connectors';
 
 // Define WalletConnect projectId
 const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || 'dce4c19a5efd3cba4116b12d4fc3689a';
@@ -68,7 +48,7 @@ const getRpcUrl = (chainId: number) => {
 
 // Configure wagmi
 const wagmiConfig = createConfig({
-  connectors: [injected()],
+  connectors,
   chains,
   transports: {
     [1]: http(getRpcUrl(1)), // Ethereum Mainnet
@@ -124,7 +104,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
     const handleReconnect = async () => {
       try {
-        await reconnect(wagmiConfig, { connectors: [injected()] });
+        await reconnect(wagmiConfig);
         console.log('Reconnected successfully');
       } catch (error) {
         console.error('Error reconnecting:', error);
@@ -150,7 +130,7 @@ const App = ({ Component, pageProps }: AppProps) => {
             <CssBaseline />
             <GithubCorner href="https://github.com/dawsbot/drain" size="140" bannerColor="#e056fd" />
             {/* Conditionally render the main component based on wallet initialization */}
-            {isMounted && web3wallet ? <Component {...pageProps} /> : null}
+            {isMounted && web3wallet ? <Component {...pageProps} /> : <p>Loading...</p>}
           </GeistProvider>
         </RainbowKitProvider>
       </WagmiProvider>
